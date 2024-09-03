@@ -1,0 +1,12 @@
+[package]
+name = "treelox2"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+
+[dev-dependencies]
+assert_cmd = "2.0.16"
+insta = { version = "1.39.0", features = ["yaml", "glob"] }
+insta-cmd = "0.6.0"
+serde = { version = "1.0.209", features = ["derive"] }

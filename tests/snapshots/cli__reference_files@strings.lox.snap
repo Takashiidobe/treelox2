@@ -1,0 +1,11 @@
+---
+source: tests/cli.rs
+expression: test_output
+input_file: test-files/scanning/strings.lox
+---
+status: 0
+stdout:
+  - "String \"\" on line 1"
+  - "String \"string\" on line 2"
+  - Eof EOF on line 6
+stderr: []

@@ -1,0 +1,13 @@
+---
+source: tests/cli.rs
+expression: test_output
+input_file: test-files/scanning/whitespace.lox
+---
+status: 0
+stdout:
+  - Identifier space on line 1
+  - Identifier tabs on line 1
+  - Identifier newlines on line 1
+  - Identifier end on line 6
+  - Eof EOF on line 13
+stderr: []

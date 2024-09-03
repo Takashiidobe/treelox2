@@ -1,0 +1,15 @@
+---
+source: tests/cli.rs
+expression: test_output
+input_file: test-files/scanning/numbers.lox
+---
+status: 0
+stdout:
+  - Number 123 on line 1
+  - Number 123.456 on line 2
+  - Dot . on line 3
+  - Number 456 on line 3
+  - Number 123 on line 4
+  - Dot . on line 4
+  - Eof EOF on line 13
+stderr: []

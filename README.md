@@ -3,7 +3,8 @@
 Implementing a tree walking interpreter for the lox language in Rust,
 again.
 
-- [Chapter 4: Scanning]
+- [Chapter 4:
+  Scanning](https://github.com/Takashiidobe/treelox2/commit/3dfee88d69e93a1a2e80f9b2a365b3d43aeaf783)
 - [Chapter 5: Representing Code]
 - [Chapter 6: Parsing Expressions]
 - [Chapter 7: Evaluating Expressions]

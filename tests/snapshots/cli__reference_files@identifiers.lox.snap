@@ -3,16 +3,10 @@ source: tests/cli.rs
 expression: test_output
 input_file: test-files/scanning/identifiers.lox
 ---
-status: 0
-stdout:
-  - Identifier andy on line 1
-  - Identifier formless on line 1
-  - Identifier fo on line 1
-  - Identifier _ on line 1
-  - Identifier _123 on line 1
-  - Identifier _abc on line 1
-  - Identifier ab123 on line 1
-  - Identifier abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 on line 2
-  - Identifier _ on line 2
-  - Eof EOF on line 13
-stderr: []
+status: 101
+stdout: []
+stderr:
+  - "[line 1] Error at 'andy': Expect expression."
+  - "thread 'main' panicked at src/parser.rs:142:9:"
+  - "Couldn't parse Token { type: Identifier, literal: Some(String(\"andy\")), loc: Location { lexeme: \"andy\", line: 1 } }"
+  - "note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace"

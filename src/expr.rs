@@ -19,15 +19,15 @@ pub enum Expr {
     },
 }
 
-pub trait Visitor<R> {
-    fn visit_binary_expr(&self, left: &Expr, operator: &Token, right: &Expr) -> R;
-    fn visit_grouping_expr(&self, expr: &Expr) -> R;
-    fn visit_literal_expr(&self, value: &Object) -> R;
-    fn visit_unary_expr(&self, operator: &Token, right: &Expr) -> R;
+pub trait Visitor<R, E> {
+    fn visit_binary_expr(&self, left: &Expr, operator: &Token, right: &Expr) -> Result<R, E>;
+    fn visit_grouping_expr(&self, expr: &Expr) -> Result<R, E>;
+    fn visit_literal_expr(&self, value: &Object) -> Result<R, E>;
+    fn visit_unary_expr(&self, operator: &Token, right: &Expr) -> Result<R, E>;
 }
 
 impl Expr {
-    pub fn accept<R>(&self, visitor: &dyn Visitor<R>) -> R {
+    pub fn accept<R, E>(&self, visitor: &dyn Visitor<R, E>) -> Result<R, E> {
         match self {
             Expr::Binary {
                 left,
@@ -44,37 +44,37 @@ impl Expr {
 pub struct AstPrinter;
 
 impl AstPrinter {
-    pub fn print(&self, expr: Expr) -> String {
-        expr.accept(self)
+    pub fn print(&self, expr: Expr) -> Result<String, ()> {
+        Ok(expr.accept(self)?)
     }
 
-    fn parenthesize(&self, name: String, exprs: &[&Expr]) -> String {
+    fn parenthesize(&self, name: String, exprs: &[&Expr]) -> Result<String, ()> {
         let mut r = String::new();
         r.push('(');
         r.push_str(&name);
         for expr in exprs {
             r.push(' ');
-            r.push_str(&expr.accept(self));
+            r.push_str(&expr.accept(self)?);
         }
         r.push(')');
-        r
+        Ok(r)
     }
 }
 
-impl Visitor<String> for AstPrinter {
-    fn visit_binary_expr(&self, left: &Expr, operator: &Token, right: &Expr) -> String {
+impl Visitor<String, ()> for AstPrinter {
+    fn visit_binary_expr(&self, left: &Expr, operator: &Token, right: &Expr) -> Result<String, ()> {
         self.parenthesize(operator.loc.lexeme.clone(), &[left, right])
     }
 
-    fn visit_grouping_expr(&self, expr: &Expr) -> String {
+    fn visit_grouping_expr(&self, expr: &Expr) -> Result<String, ()> {
         self.parenthesize("group".to_string(), &[expr])
     }
 
-    fn visit_literal_expr(&self, value: &Object) -> String {
-        value.to_string()
+    fn visit_literal_expr(&self, value: &Object) -> Result<String, ()> {
+        Ok(value.to_string())
     }
 
-    fn visit_unary_expr(&self, operator: &Token, right: &Expr) -> String {
+    fn visit_unary_expr(&self, operator: &Token, right: &Expr) -> Result<String, ()> {
         self.parenthesize(operator.loc.lexeme.clone(), &[right])
     }
 }
@@ -116,7 +116,7 @@ mod tests {
             }),
         };
 
-        let result = AstPrinter.print(expression);
+        let result = AstPrinter.print(expression).unwrap();
 
         assert_eq!(result, "(* (- 123) (group 45.67))");
     }

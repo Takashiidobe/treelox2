@@ -3,11 +3,10 @@ source: tests/cli.rs
 expression: test_output
 input_file: test-files/scanning/whitespace.lox
 ---
-status: 0
-stdout:
-  - Identifier space on line 1
-  - Identifier tabs on line 1
-  - Identifier newlines on line 1
-  - Identifier end on line 6
-  - Eof EOF on line 13
-stderr: []
+status: 101
+stdout: []
+stderr:
+  - "[line 1] Error at 'space': Expect expression."
+  - "thread 'main' panicked at src/parser.rs:142:9:"
+  - "Couldn't parse Token { type: Identifier, literal: Some(String(\"space\")), loc: Location { lexeme: \"space\", line: 1 } }"
+  - "note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace"

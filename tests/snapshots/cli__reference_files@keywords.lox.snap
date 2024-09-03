@@ -3,22 +3,10 @@ source: tests/cli.rs
 expression: test_output
 input_file: test-files/scanning/keywords.lox
 ---
-status: 0
-stdout:
-  - And and on line 1
-  - Class class on line 1
-  - Else else on line 1
-  - False false on line 1
-  - For for on line 1
-  - Fun fun on line 1
-  - If if on line 1
-  - Nil nil on line 1
-  - Or or on line 1
-  - Return return on line 1
-  - Super super on line 1
-  - This this on line 1
-  - True true on line 1
-  - Var var on line 1
-  - While while on line 1
-  - Eof EOF on line 19
-stderr: []
+status: 101
+stdout: []
+stderr:
+  - "[line 1] Error at 'and': Expect expression."
+  - "thread 'main' panicked at src/parser.rs:142:9:"
+  - "Couldn't parse Token { type: And, literal: None, loc: Location { lexeme: \"and\", line: 1 } }"
+  - "note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace"

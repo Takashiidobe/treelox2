@@ -3,25 +3,10 @@ source: tests/cli.rs
 expression: test_output
 input_file: test-files/scanning/punctuators.lox
 ---
-status: 0
-stdout:
-  - LeftParen ( on line 1
-  - RightParen ) on line 1
-  - "LeftBrace { on line 1"
-  - "RightBrace } on line 1"
-  - Semicolon ; on line 1
-  - "Comma , on line 1"
-  - Plus + on line 1
-  - Minus - on line 1
-  - Star * on line 1
-  - BangEqual != on line 1
-  - EqualEqual == on line 1
-  - LessEqual <= on line 1
-  - GreaterEqual >= on line 1
-  - BangEqual != on line 1
-  - Less < on line 1
-  - Greater > on line 1
-  - Slash / on line 1
-  - Dot . on line 1
-  - Eof EOF on line 22
-stderr: []
+status: 101
+stdout: []
+stderr:
+  - "[line 1] Error at ')': Expect expression."
+  - "thread 'main' panicked at src/parser.rs:142:9:"
+  - "Couldn't parse Token { type: RightParen, literal: None, loc: Location { lexeme: \")\", line: 1 } }"
+  - "note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace"

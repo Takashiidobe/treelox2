@@ -76,6 +76,16 @@ pub enum Object {
     Nil,
 }
 
+impl Object {
+    pub fn is_truthy(&self) -> bool {
+        match self {
+            Object::Bool(b) => *b,
+            Object::Nil => false,
+            _ => true,
+        }
+    }
+}
+
 impl fmt::Display for Object {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {

@@ -1,16 +1,27 @@
+use expr::AstPrinter;
+use parser::Parser;
 use scanner::Scanner;
 
+pub mod errors;
 pub mod expr;
 pub mod lox;
+pub mod parser;
 pub mod scanner;
 pub mod token;
 
 pub fn run(source: &str) {
     let mut scanner = Scanner::new(source);
     let tokens = scanner.scan_tokens();
+    let mut parser = Parser::new(&tokens);
+    let expr = parser.parse();
 
-    for token in tokens {
-        println!("{}", token);
+    match expr {
+        Some(expr) => {
+            println!("{}", AstPrinter.print(expr));
+        }
+        None => {
+            panic!("Error while scanning tokens");
+        }
     }
 }
 

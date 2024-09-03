@@ -1,0 +1,13 @@
+---
+source: tests/cli.rs
+assertion_line: 40
+expression: test_output
+input_file: test-files/scanning/punctuators.lox
+---
+status: 101
+stdout: []
+stderr:
+  - "[line 1] Error at ')': Expect expression."
+  - "thread 'main' panicked at src/parser.rs:142:9:"
+  - "Couldn't parse Token { type: RightParen, literal: None, loc: Location { lexeme: \")\", line: 1 } }"
+  - "note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace"

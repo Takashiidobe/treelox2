@@ -66,11 +66,14 @@ impl fmt::Display for Token {
 }
 
 #[non_exhaustive]
-#[derive(Debug, Clone, PartialEq, PartialOrd)]
+#[derive(Default, Debug, Clone, PartialEq, PartialOrd)]
 pub enum Object {
     String(String),
     Number(f64),
     Identifier(String),
+    Bool(bool),
+    #[default]
+    Nil,
 }
 
 impl fmt::Display for Object {
@@ -79,6 +82,8 @@ impl fmt::Display for Object {
             Object::String(str) => f.write_str(str),
             Object::Number(num) => f.write_str(&num.to_string()),
             Object::Identifier(ident) => f.write_str(ident),
+            Object::Bool(b) => f.write_str(&b.to_string()),
+            Object::Nil => f.write_str("nil"),
         }
     }
 }
